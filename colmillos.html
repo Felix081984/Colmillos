@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colmillos y Garras - Tienda de Mascotas</title>
+</head>
+<body>
+
+    <header>
+        <h1 id="nombre-tienda"></h1>
+        <p id="descripcion-tienda"></p>
+    </header>
+
+    <section id="productos">
+        <h2>Productos</h2>
+        <ul id="lista-productos"></ul>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Colmillos y Garras - Tienda de Mascotas</p>
+    </footer>
+
+    <script>
+        // Cargar datos desde un archivo JSON usando JavaScript
+        fetch('datos.json')
+          .then(response => response.json())
+          .then(data => {
+            // Actualizar elementos en el HTML con los datos del JSON
+            document.getElementById('nombre-tienda').textContent = data.tienda.nombre;
+            document.getElementById('descripcion-tienda').textContent = data.tienda.descripcion;
+
+            const listaProductos = document.getElementById('lista-productos');
+
+            data.tienda.productos.forEach(producto => {
+              const listItem = document.createElement('li');
+              listItem.textContent = `${producto.nombre} - $${producto.precio}`;
+              listaProductos.appendChild(listItem);
+            });
+          })
+          .catch(error => console.error('Error al cargar los datos:', error));
+    </script>
+
+</body>
+</html>
